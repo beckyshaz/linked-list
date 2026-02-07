@@ -66,7 +66,34 @@ class LinkedList {
 
     }
 
+    //head() should return the value of the first node in the list.
+    // If the list is empty, it should return undefined
+
+    getHeadValue() {
+        if (this.head === null) {
+            return;
+        }
+
+        return this.head.value;
+    }
+
+    //tail() should return the value of the final node in the list.
+    // If the list is empty, it should return undefined
     
+    getTailValue() {
+        if (this.head === null) {
+            return;
+        }
+
+        let current = this.head;
+
+        while(current.nextNode !== null) {
+            current = current.nextNode;
+
+        }
+
+        return current.value;
+    }
 }
 
 
@@ -90,5 +117,5 @@ console.log(list);
 
 console.log(list.size());
 
-
-
+const newList = new LinkedList();
+console.log(list.getTailValue());
