@@ -81,19 +81,62 @@ class LinkedList {
     // If the list is empty, it should return undefined
     
     getTailValue() {
+        
+
+       if (this.tail === null) {
+            return;
+       }
+       return this.tail.value;
+    }
+
+    //at(index) should return the value of the node at the given index.
+    // If there’s no node at the given index, it should return undefined.
+
+    at(index) {
+        if (this.head === null || index < 0) {
+            return;
+        }
+
+        let i = 0;
+
+        let current = this.head;
+
+        while (i <= index && current != null) {
+            if (i === index) {
+                return current.value;
+            }
+
+            current = current.nextNode;
+            i++;
+
+            
+        }
+
+    }
+
+    //pop() should remove the head node from the list and return its value.
+    // If it’s used on an empty list, it should just return undefined.
+
+    pop() {
         if (this.head === null) {
             return;
         }
 
-        let current = this.head;
+        let temp = this.head;
+        if (temp.nextNode === null) {
+            this.head = null;
+            this.tail = null;
+            return temp.value;
 
-        while(current.nextNode !== null) {
-            current = current.nextNode;
-
+        }else {
+            this.head = temp.nextNode;
+            return temp.value;
         }
-
-        return current.value;
     }
+
+
+
+
 }
 
 
@@ -118,4 +161,9 @@ console.log(list);
 console.log(list.size());
 
 const newList = new LinkedList();
-console.log(list.getTailValue());
+newList.append(5);
+console.log(newList.getTailValue());
+console.log(`index value is ${list.at(0)}`);
+
+console.log(`poped value ${newList.pop()}`);
+//console.log(newList.getTailValue());
