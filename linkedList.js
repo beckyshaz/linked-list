@@ -134,6 +134,53 @@ class LinkedList {
         }
     }
 
+   // contains(value) returns true if the passed in value is in the list and otherwise returns false.
+
+   contains(value) {
+
+    if (this.head === null) {
+        return false;
+    }
+
+    let current = this.head;
+
+    while (current !== null) {
+        if (current.value === value) {
+            return true;
+        }
+        current = current.nextNode;
+    }
+    return false;
+
+   }
+
+   //findIndex(value) returns the index of the node containing the given value.
+   // If the value can’t be found in the list, it should return -1. 
+   // If more than one node has a value matching the given value,
+   // it should return the index of the first node with the matching value.
+
+   findIndex(value) {
+    if (this.head === null) {
+        return -1;
+    }
+
+    let i = 0;
+
+    let current = this.head;
+
+    while(current !== null) {
+
+        if(value === current.value) {
+            return i;
+        }
+        current = current.nextNode;
+        i++;
+    }
+    return -1;
+
+   }
+   
+
 
 
 
@@ -167,3 +214,9 @@ console.log(`index value is ${list.at(0)}`);
 
 console.log(`poped value ${newList.pop()}`);
 //console.log(newList.getTailValue());
+
+const anotherList = new LinkedList();
+console.log(anotherList.contains(0));
+
+console.log(list.findIndex(30));
+
