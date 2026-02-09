@@ -179,13 +179,143 @@ class LinkedList {
     return -1;
 
    }
-   
+
+   //toString() represents your LinkedList objects as strings, so you can print them out and preview them in the console.
+   // If the list is empty, it should return an empty string.
+   // The format should be: ( value ) -> ( value ) -> ( value ) -> null.
+
+   toString() {
+    if (this.head === null) {
+        return "";
+    }
+
+    let result = "";
+    let current = this.head;
+    while(current !== null) {
+
+        result += `( ${current.value} )`;
+
+        if (current.nextNode) {
+            result += " -> ";
+        }
+
+        current = current.nextNode;
+       
+    }
+    result += " null";
+    return result;
+   }
+
+   //insertAt(index, ...values) should insert new nodes with the given values at the given index.
+
+   insertAt(index, ...values) {
+    if (this.head === null && index !== 0) {
+        throw  new RangeError("Index " + index + "out of bounds for size" + listSize);
+    }
+
+    let listSize = this.size();
+
+    if (index < 0 || index > listSize) {
+        throw  new RangeError("Index " + index + "out of bounds for size" + listSize);
+    }
+
+    const  newValues = [...values];
+
+    //if (current === tail)
+
+    if (index === 0) {
+        for (let i = newValues.length - 1; i >= 0; i--) {
+            this.prepend(newValues[i]);
+        }
+        return;
+            
+    }
+
+    if (index === listSize - 1) {
+        values.forEach((value) => {
+            this.append(value);
+        })
+    }
+
+    let current = this.head ;
+
+    let i = 0;
+
+    while(current !== null && i < index - 1) {
+        current = current.nextNode;
+        i++;
+    }
+
+    // 10 -> 20-> 30-> 40
+    let nextNode = current.nextNode;
+    
+    newValues.forEach((value) => {
+        const newNode = new Node(value);
+        current.nextNode = newNode;
+        current = newNode;
+       
+    })
+
+    current.nextNode = nextNode;
+}
+
+//removeAt(index) that removes the node at the given index.
+// If the given index is out of bounds
+// (below 0 or greater than or equal to the list’s size), throw a RangeError
+
+removeAt(index) {
+
+    const listSize = this.size();
+    if (this.head === null && index >= 0) {
+        throw new RangeError("cannot remove node of " + index + "on an empty list");
+    }
+
+    if (index < 0 || index >= listSize) {
+        throw new RangeError("the index " + index + "is out of bounds for" + listSize)
+    }
+
+
+
+    if (listSize === 1) {
+        this.head = null;
+        this.tail = null;
+        return;
+    }
+
+    if (index === 0) {
+       this.head = this.head.nextNode;
+       if (this.head === null) {
+            this.tail = null;
+      }
+      return;
+    }
+
+    let i = 0;
+
+    let current = this.head;
+
+    while (current !== null && i < index - 1) {
+        current = current.nextNode;
+        i++;
+    }
+
+
+
+    // 30 -> 40-> 50 -> 60 -> 70 -> null
+
+    current.nextNode = current.nextNode.nextNode;
+
+    if (current.nextNode === null) {
+        this.tail = current;
+    }
 
 
 
 
 }
 
+
+}
 
 const list = new LinkedList();
 console.log(list);
@@ -219,4 +349,8 @@ const anotherList = new LinkedList();
 console.log(anotherList.contains(0));
 
 console.log(list.findIndex(30));
+
+console.log(list.toString());
+list.removeAt(0);
+console.log(list.toString());
 
